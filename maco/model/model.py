@@ -789,3 +789,47 @@ class ExtractorModel(ForbidModel):
         stack_trace: str = ""
 
     warnings: list[Warning] = []
+
+    class CloudService(ForbidModel):
+        """Online service used by malware."""
+
+        # the name of the service
+        service_name = str
+
+        # the thing, bucket, storage account name, etc
+        resource = str
+
+        # another identifier for the thing? like a filename? or a filepath? object??
+        filename = str | None = None
+
+        #
+        token = str | None = None
+
+        #
+        api_key = str | None = None
+
+        # any secret used to
+        secret = str | None = None
+
+        # the region associated with the storage
+        region = str | None = None
+
+        # the domain connected to
+        domain = str | None = None
+
+        # a full download link?
+        url = str | None = None
+
+        # any partial url fragments used
+        fragment = str | None = None
+
+        # username? password?
+
+        # onedrive: app id, client secret
+        # steam: api key, access token
+        # dropbox: token, filepath
+        # alibaba oss: bucket, filepath, region, access_key_id, access_key_secret, endpoint
+        # amazon s3: bucket, filename, access_key, secret_key,
+        # azure: storage account name, container name, file, creds
+
+        usage: ConnUsageEnum
