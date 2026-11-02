@@ -790,40 +790,35 @@ class ExtractorModel(ForbidModel):
 
     warnings: list[Warning] = []
 
-    class CloudService(ForbidModel):
+    class OnlineService(ForbidModel):
         """Online service used by malware."""
+        # Online services use all manner of authentication and access schemes, we aim to capture most use cases
+        # but won't be able to match variable names with all platforms
 
-        # the name of the service
+        # the name of the service, e.g. Azure, Steam, AWS, Alibaba, etc
         service_name = str
-
-        # the thing, bucket, storage account name, etc
-        resource = str
-
-        # another identifier for the thing? like a filename? or a filepath? object??
-        filename = str | None = None
-
-        #
+        # the bucket, storage account name or container that holds a desired resource
+        container = str
+        # filepath, filename or other identifier for the desired resource
+        identifier = str | None = None
+        # any type of token required to access a resource
         token = str | None = None
-
-        #
+        # any key or identifier required to use an API to retrieve
         api_key = str | None = None
-
-        # any secret used to
+        # any secret required access to a resource
         secret = str | None = None
-
-        # the region associated with the storage
+        # any username or account name associated with a resource
+        username = str | None = None
+        # any password used to access a resource
+        password = str | None = None
+        # the region associated with the storage container or account
         region = str | None = None
-
         # the domain connected to
         domain = str | None = None
-
-        # a full download link?
+        # a download link for a resource that otherwise wouldn't be a Http connection
         url = str | None = None
-
         # any partial url fragments used
         fragment = str | None = None
-
-        # username? password?
 
         # onedrive: app id, client secret
         # steam: api key, access token
