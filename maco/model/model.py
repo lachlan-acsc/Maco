@@ -792,33 +792,35 @@ class ExtractorModel(ForbidModel):
 
     class OnlineService(ForbidModel):
         """Online service used by malware."""
+
         # Online services use all manner of authentication and access schemes, we aim to capture most use cases
-        # but won't be able to match variable names with all platforms
+        # but won't be able to match variable names with all platforms.
+        # This is intended to store data that doesn't fit into the Http field.
 
         # the name of the service, e.g. Azure, Steam, AWS, Alibaba, etc
-        service_name = str
+        service_name: str
         # the bucket, storage account name or container that holds a desired resource
-        container = str
+        container: str | None = None
         # filepath, filename or other identifier for the desired resource
-        identifier = str | None = None
+        identifier: str | None = None
         # any type of token required to access a resource
-        token = str | None = None
+        token: str | None = None
         # any key or identifier required to use an API to retrieve
-        api_key = str | None = None
+        api_key: str | None = None
         # any secret required access to a resource
-        secret = str | None = None
+        secret: str | None = None
         # any username or account name associated with a resource
-        username = str | None = None
+        username: str | None = None
         # any password used to access a resource
-        password = str | None = None
+        password: str | None = None
         # the region associated with the storage container or account
-        region = str | None = None
+        region: str | None = None
         # the domain connected to
-        domain = str | None = None
+        domain: str | None = None
         # a download link for a resource that otherwise wouldn't be a Http connection
-        url = str | None = None
+        url: str | None = None
         # any partial url fragments used
-        fragment = str | None = None
+        fragment: str | None = None
 
         # onedrive: app id, client secret
         # steam: api key, access token
@@ -828,3 +830,5 @@ class ExtractorModel(ForbidModel):
         # azure: storage account name, container name, file, creds
 
         usage: ConnUsageEnum
+
+    online_services: list[OnlineService] = []
